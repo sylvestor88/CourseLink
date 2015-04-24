@@ -34,13 +34,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#about">Login</a>
+                        <a class="page-scroll">About Us</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#services">About Us</a>
+                        <a class="page-scroll">Features</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contacts">Team</a>
+                        <a class="page-scroll">Team</a>
                     </li>
                     <li>
                         <a href="#collapseExample" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Feedback</a>
@@ -72,7 +72,9 @@
                     <h2 class="section-heading">We know what your career needs!</h2>
                     <hr class="light" />
                     <p class="text-faded">Enhance your career by learning about new technologies that can give you an edge in today's competitive environment. <br /> Take the world's best courses, online, for free.</p>
-                    <a class="btn btn-default btn-xl">Get Started!</a>
+                    <form th:action="@{/connect/linkedin}" method="POST">
+                    	<button  type="submit" class="btn btn-default btn-xl" >Get Started</button>
+                    </form>
                 </div>
             </div>
         </div>
