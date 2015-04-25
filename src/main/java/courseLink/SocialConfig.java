@@ -1,4 +1,4 @@
-package hello;
+package courseLink;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.social.connect.ConnectionFactoryLocator;

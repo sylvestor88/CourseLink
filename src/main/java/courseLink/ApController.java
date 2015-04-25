@@ -1,4 +1,4 @@
-package hello;
+package courseLink;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,8 @@ public class ApController {
 			return "redirect:/connect/linkedin";
 		else
 			return "/connect/linkedinConnected";
-//		model.addAttribute(linkedIn.profileOperations().getUserProfile().getFirstName());
+
+		//		model.addAttribute(linkedIn.profileOperations().getUserProfile().getFirstName());
 //		return linkedin.profileOperations().getUserProfile().getFirstName();
 	}
 	
