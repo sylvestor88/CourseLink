@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>Hello LinkedIn</title>
+</head>
+<body>
+Here are your courses....
+<p>
+Skills selected are: <span th:text="${Skill_clicked}">Skill Selected Not Found</span>
+</p>
+<p>
+Courses found are: <span th:text="${Course1ID}">Courses Not Found</span>
+</p>
+<img th:src="${Course1pic}"></img>
+
+<table>
+<tr>
+<th>Course Name</th>
+<th>Instructor</th>
+<th>Course Duration</th>
+<th>Start Date</th>
+</tr>
+
+<tr th:each="course,iterationStatus  : ${courses}">
+<td th:text="${course.name}"></td>
+<td th:text="${course.instructor_name}"></td>
+<td th:text="${course.duration}"></td>
+<td th:text="${course.session_start}"></td>
+
+
+</tr>
+</table>
+
+</body>
+</html>
