@@ -1,5 +1,8 @@
 package com.project.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Sessions {
 	
 	int id;
