@@ -21,6 +21,7 @@ import com.project.implementation.CourseraOperations;
 public class ApController {
 	
 	CourseraOperations cop=new CourseraOperations();
+	List<CourseInfoBySkill> courses;
 	
 	private LinkedIn linkedIn;
 	
@@ -53,12 +54,13 @@ public class ApController {
 	}
 	
 	@RequestMapping(value="/getcoursesbylinkedinskills/{skill}", method=RequestMethod.GET)
-	public ResponseEntity<List<CourseInfoBySkill>> getCourseByLinkedIn(@PathVariable String skill){
+	public String getCourseByLinkedIn(Model model, @PathVariable String skill){
 		
-		//String skill="java";
-		List<CourseInfoBySkill> courses=cop.getCoursesBySkills(skill);
-	
-		return new ResponseEntity<List<CourseInfoBySkill>>(courses, HttpStatus.OK);
+		
+		courses=cop.getCoursesBySkills(skill);
+		model.addAttribute("courses", courses);
+
+		return "connect/courses";
 		
 	}
 }	
