@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.stereotype.Controller;
@@ -55,12 +53,10 @@ public class ApController {
 	
 	@RequestMapping(value="/getcoursesbylinkedinskills/{skill}", method=RequestMethod.GET)
 	public String getCourseByLinkedIn(Model model, @PathVariable String skill){
-		
-		
+	
 		courses=cop.getCoursesBySkills(skill);
 		model.addAttribute("courses", courses);
-
-		return "connect/courses";
+		return "connect/courses :: resultsList";
 		
 	}
 }	
