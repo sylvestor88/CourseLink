@@ -42,7 +42,7 @@ public class CourseraOperations {
 
 		}catch(Exception e){
 
-           System.out.println("Courses Not Found : 4O4 NOT FOUND ERROR HANDLING");
+			System.out.println("Courses Not Found : 4O4 NOT FOUND ERROR HANDLING");
 
 		}
 
@@ -85,17 +85,27 @@ public class CourseraOperations {
 
 				String universityUrl="https://api.coursera.org/api/catalog.v1/universities/"+universities[i]+"?fields=name";
 
-				UniversityElement ele = restTemplate.getForObject(universityUrl, UniversityElement.class);
+				UniversityElement ele=null;
+
+				try{
+					ele = restTemplate.getForObject(universityUrl, UniversityElement.class);
+				}catch(Exception e){
+
+					System.out.println("Universities  Not Found : 4O4 NOT FOUND ERROR HANDLING");
+
+				}
+
+				if(ele!=null){
+
+					for(Universities u : ele.getElements())
+					{
+
+						course.setUniversity(u.getName());
 
 
-				for(Universities u : ele.getElements())
-				{
 
-					course.setUniversity(u.getName());
-
-
-
-				}	
+					}	
+				}
 
 			}
 		}else{
@@ -117,20 +127,29 @@ public class CourseraOperations {
 
 				String sessionUrl="https://api.coursera.org/api/catalog.v1/sessions/"+sessions[i]+"?fields=startDay,startMonth,startYear,durationString";
 
-				SessionsElement ele = restTemplate.getForObject(sessionUrl, SessionsElement.class);
+				SessionsElement ele=null;
+
+				try{
+					ele= restTemplate.getForObject(sessionUrl, SessionsElement.class);
+				}catch(Exception e){
+
+					System.out.println("Sessions Not Found : 4O4 NOT FOUND ERROR HANDLING");
+
+				}
+
+				if(ele!=null){
+
+					for(Sessions s : ele.getElements())
+					{
+
+						course.setDuration(s.getDurationString());
+
+						course.setSession_start(s.getStartMonth()+"-"+s.getStartDay()+"-"+s.getStartYear());
 
 
-				for(Sessions s : ele.getElements())
-				{
 
-					course.setDuration(s.getDurationString());
-
-					course.setSession_start(s.getStartMonth()+"-"+s.getStartDay()+"-"+s.getStartYear());
-
-
-
-				}	
-
+					}	
+				}
 			}
 		}else{
 			System.out.println("sessions  list empty");
