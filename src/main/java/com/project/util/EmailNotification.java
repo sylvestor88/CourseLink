@@ -18,23 +18,29 @@ import org.springframework.stereotype.Component;
 public class EmailNotification {
 
 	static final String host = "smtp.gmail.com";
-	static final String username = "tvaibhav15@gmail.com";
-	static final String password = "senders password"; 
-	
-public void sendEmailonSubscription(String userEmailAddress, String userName)  
-	{
-		String subject = "your choice of course is going to start soon";
-		
-			String msgBody = "Hello "+ userEmailAddress +" courses list which are going to start soon";
+	static final String username = "courselink273@gmail.com";
+	static final String password = "newuser@123"; 
 
-			emailGenerator(userEmailAddress, userName, subject, msgBody);
-					
+	public void sendEmailonSubscription(String userEmailAddress, String userName,String subject,StringBuilder msgBody)  
+	{
+		//String subject = "your choice of course is going to start soon";
+
+		//	String msgBody = "Hello "+ userEmailAddress +" courses list which are going to start soon";
+
+		emailGenerator(userEmailAddress, userName, subject, msgBody);
+
 
 	}
-	
-	
 
-	public void emailGenerator(String userEmailAddress, String userName, String subject, String msgBody)
+
+	public void sendEmailOnSubscriptionSignUp(String userEmailAddress, String userName,String subject,StringBuilder msgBody){
+
+		emailGenerator(userEmailAddress, userName, subject, msgBody);
+
+	}
+
+
+	public void emailGenerator(String userEmailAddress, String userName, String subject, StringBuilder msgBody)
 
 	{
 		Properties props = new Properties();
@@ -52,11 +58,11 @@ public void sendEmailonSubscription(String userEmailAddress, String userName)
 				return new PasswordAuthentication(username, password);
 			}
 		});
-		
+
 		try {
 			Message msg = new MimeMessage(session);
 			try {
-				msg.setFrom(new InternetAddress("tvaibhav15@gmail.com", "Courses suggestion"));
+				msg.setFrom(new InternetAddress("courselink273@gmail.com", "Courses suggestion"));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -69,7 +75,7 @@ public void sendEmailonSubscription(String userEmailAddress, String userName)
 				e.printStackTrace();
 			}
 			msg.setSubject(subject);			
-			msg.setText(msgBody);
+			msg.setText(msgBody.toString());
 			Transport.send(msg);
 
 		} catch (AddressException e) {
@@ -77,9 +83,9 @@ public void sendEmailonSubscription(String userEmailAddress, String userName)
 		} catch (MessagingException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
-		
+
+
+
 	}
 
 
