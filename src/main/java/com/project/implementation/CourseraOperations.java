@@ -24,7 +24,7 @@ public class CourseraOperations {
 
 
 
-	// get coursera courses by linkedin skill
+	// takes search query skill set
 
 	public  List<CourseInfoBySkill> getCoursesBySkills(String skill){
 
@@ -32,44 +32,31 @@ public class CourseraOperations {
 
 
 		RestTemplate restTemplate = new RestTemplate();
-		Element elements=null;
-
+		Element elements;
 
 		String courseUrl="https://api.coursera.org/api/catalog.v1/courses?q=search&query="+skill+"&includes=sessions,instructors,categories,universities&fields=photo,instructor";
+		elements = restTemplate.getForObject(courseUrl, Element.class);
 
-		try{
-			elements = restTemplate.getForObject(courseUrl, Element.class);
+		System.out.println(elements.getElements());
+		for(Course c : elements.getElements())
+		{
 
-		}catch(Exception e){
+			CourseInfoBySkill course=new CourseInfoBySkill();
 
-			System.out.println("Courses Not Found : 4O4 NOT FOUND ERROR HANDLING");
+			course.setCourse_id(c.getId());
+			course.setName(c.getName());
+			course.setCourse_image_url(c.getPhoto());
+			course.setInstructor_name(c.getInstructor());
 
-		}
+			Linked l=c.getLinked();
 
-		//System.out.println(elements.getElements());
-
-		if(elements !=null){
-
-			for(Course c : elements.getElements())
-			{
-
-				CourseInfoBySkill course=new CourseInfoBySkill();
-
-				course.setCourse_id(c.getId());
-				course.setName(c.getName());
-				course.setCourse_image_url(c.getPhoto());
-				course.setInstructor_name(c.getInstructor());
-
-				Linked l=c.getLinked();
-
-				setUniversityNameforCourse(course,l.getUniversities());
+			setUniversityNameforCourse(course,l.getUniversities());
 
 
-				setSessionInfoForCourse(course,l.getSessions());
+			setSessionInfoForCourse(course,l.getSessions());
 
-				coursesForSkill.add(course);
+			coursesForSkill.add(course);
 
-			}
 		}
 
 		return coursesForSkill;
@@ -85,27 +72,17 @@ public class CourseraOperations {
 
 				String universityUrl="https://api.coursera.org/api/catalog.v1/universities/"+universities[i]+"?fields=name";
 
-				UniversityElement ele=null;
+				UniversityElement ele = restTemplate.getForObject(universityUrl, UniversityElement.class);
 
-				try{
-					ele = restTemplate.getForObject(universityUrl, UniversityElement.class);
-				}catch(Exception e){
 
-					System.out.println("Universities  Not Found : 4O4 NOT FOUND ERROR HANDLING");
+				for(Universities u : ele.getElements())
+				{
 
-				}
-
-				if(ele!=null){
-
-					for(Universities u : ele.getElements())
-					{
-
-						course.setUniversity(u.getName());
+					course.setUniversity(u.getName());
 
 
 
-					}	
-				}
+				}	
 
 			}
 		}else{
@@ -126,30 +103,21 @@ public class CourseraOperations {
 			for(int i=0;i<sessions.length;i++){
 
 				String sessionUrl="https://api.coursera.org/api/catalog.v1/sessions/"+sessions[i]+"?fields=startDay,startMonth,startYear,durationString";
+				
+				SessionsElement ele = restTemplate.getForObject(sessionUrl, SessionsElement.class);
 
-				SessionsElement ele=null;
 
-				try{
-					ele= restTemplate.getForObject(sessionUrl, SessionsElement.class);
-				}catch(Exception e){
+				for(Sessions s : ele.getElements())
+				{
 
-					System.out.println("Sessions Not Found : 4O4 NOT FOUND ERROR HANDLING");
-
-				}
-
-				if(ele!=null){
-
-					for(Sessions s : ele.getElements())
-					{
-
-						course.setDuration(s.getDurationString());
-
-						course.setSession_start(s.getStartMonth()+"-"+s.getStartDay()+"-"+s.getStartYear());
+					course.setDuration(s.getDurationString());
+					
+					course.setSession_start(s.getStartMonth()+"-"+s.getStartDay()+"-"+s.getStartYear());
 
 
 
-					}	
-				}
+				}	
+
 			}
 		}else{
 			System.out.println("sessions  list empty");
@@ -159,8 +127,21 @@ public class CourseraOperations {
 
 		return course;
 	}
+	
+	
+	public StackItems getStack(){
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String stackUrl="https://api.stackexchange.com/2.2/tags?order=desc&sort=popular&site=stackoverflow&fromdate=1375401600";
+		
+	    StackItems items = restTemplate.getForObject(stackUrl, StackItems.class);
 
-
+		
+	    
+	    return items;
+		
+	}
 
 
 }

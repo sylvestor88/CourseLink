@@ -9,15 +9,14 @@ import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.dto.CourseInfoBySkill;
-import com.project.dto.UserInfo;
+import com.project.dto.Tag;
 import com.project.implementation.CourseraOperations;
+import com.project.implementation.StackOverflowOperations;
 
 @Controller
 public class ApController {
@@ -25,10 +24,8 @@ public class ApController {
 	@Autowired
     private CourseRepository courseRepo;
 	
-	@Autowired
-	private UserRepository userRepo;
-	
-	CourseraOperations cop=new CourseraOperations();
+	CourseraOperations cop = new CourseraOperations();
+	StackOverflowOperations sop = new StackOverflowOperations();
 	
 	private LinkedIn linkedIn;
 	
@@ -42,6 +39,7 @@ public class ApController {
     String login() {
         return "login";
     }
+
 	
 	@RequestMapping("/connections")
 	String connected(Model model){
@@ -85,15 +83,19 @@ public class ApController {
 		
 	}
 	
-	@RequestMapping(value="/subscribe", method=RequestMethod.POST)
-	public String saveSubscriptionInfo(@ModelAttribute UserInfo user,Model model){
+	@RequestMapping(value="/trend", method=RequestMethod.GET)
+	public String getCourseByLinkedIn(Model model){
 	
 		
-		model.addAttribute("UserInfo",user);
-	
-		userRepo.save(user);
+		List<Tag> trending;
 		
-		return null;
+		trending = sop.getTopTrending();
+		
+		//System.out.println("Testing");
+		
+		model.addAttribute("trending", trending);
+		
+		return "trend";
 		
 	}
 	

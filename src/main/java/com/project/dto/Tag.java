@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tag {
 	//Tag name
-	private String name;
+	String name;
 	//tag count
-	private int count;
+	int count;
 	//tag date
 	//private String date;
 	

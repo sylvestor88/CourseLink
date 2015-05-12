@@ -83,7 +83,13 @@
 .main .page-header {
 	margin-top: 0;
 }
+
+.active{
+	background-color: #F8F8F8;
+	}
 </style>
+
+
 
 </head>
 <body>
@@ -120,7 +126,7 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#">All Courses <span
+					<li id="test" class="active"><a href="#">My Profile Info<span
 							class="sr-only">(current)</span></a></li>
 					<li th:each="skill,iterationStatus  : ${Skills}"><a th:text="${skill}" href="#" th:id="${skill}" th:value="${skill}" th:class="mySkills"></a></li>
 				</ul>
@@ -145,8 +151,11 @@
 	<script>
 	$(".mySkills").click(function () {
         
+		$('#test').removeClass('active');
+	    $(this).addClass('active');
+	    
 		var url = '/getcoursesbylinkedinskills';
-		var skill = this.id;
+		var skill = this.id;		
 		
 		url = url + '/' + skill;
 		

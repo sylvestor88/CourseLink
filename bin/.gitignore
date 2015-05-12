@@ -1,6 +1,7 @@
-/application.properties
+/.DS_Store
 /com/
-/courseLink/
-/org/
 /static/
 /templates/
+/application.properties
+/courseLink/
+/org/

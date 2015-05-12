@@ -27,7 +27,7 @@ public class StackOverflowOperations {
  			for(int i = 0; i < itemArray.length(); i++){
  				String tagName = itemArray.getJSONObject(i).getString("name");
  				int tagCount = itemArray.getJSONObject(i).getInt("count");
- 				System.out.println(tagName + "==>" + tagCount);
+ 				//System.out.println(tagName + "==>" + tagCount);
  				tagObj = new Tag();
  				tagObj.setCount(tagCount);
  				tagObj.setName(tagName);
@@ -40,7 +40,6 @@ public class StackOverflowOperations {
 	}
 	
     public static String callURL(String myURL) {
-		System.out.println("Requested URL:" + myURL);
 		StringBuilder sb = new StringBuilder();
 		URLConnection urlConn = null;
 		InputStreamReader in = null;
@@ -50,7 +49,6 @@ public class StackOverflowOperations {
 			if (urlConn != null)
 				urlConn.setReadTimeout(60 * 1000);
 			if (urlConn != null && urlConn.getInputStream() != null) {
-				System.out.println(urlConn.getContentEncoding());
 				GZIPInputStream gs = new GZIPInputStream(urlConn.getInputStream());
 				in = new InputStreamReader(gs,
 						Charset.defaultCharset());
