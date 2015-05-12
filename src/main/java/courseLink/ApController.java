@@ -9,6 +9,7 @@ import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,9 @@ public class ApController {
 	
 	@Autowired
     private CourseRepository courseRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
 	
 	CourseraOperations cop=new CourseraOperations();
 	
@@ -82,13 +86,15 @@ public class ApController {
 	}
 	
 	@RequestMapping(value="/subscribe", method=RequestMethod.POST)
-	public String saveSubscriptionInfo(@RequestBody UserInfo user){
+	public String saveSubscriptionInfo(@ModelAttribute UserInfo user,Model model){
 	
 		
-		// NEED TO WRITE SAVING USER INFO IN MONGO USING MONGO REPOSITORY
-		
+		model.addAttribute("UserInfo",user);
+	
+		userRepo.save(user);
 		
 		return null;
+		
 	}
 	
 	/*@RequestMapping(value="/importToMongo/{skill}", method=RequestMethod.GET)

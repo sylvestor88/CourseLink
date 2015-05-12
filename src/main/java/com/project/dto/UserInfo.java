@@ -5,6 +5,7 @@ public class UserInfo {
 	private String Name;
 	private String emailId;
 	private String[] skillChoices;
+	private String profession;
 	
 	
 	public String getEmailId() {
@@ -24,6 +25,12 @@ public class UserInfo {
 	}
 	public void setName(String name) {
 		Name = name;
+	}
+	public String getProfession() {
+		return profession;
+	}
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 
 }
