@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+</head>
+
+<body>
+	<div th:fragment="resultsList" th:unless="${#lists.isEmpty(courses)}" class="courses-block">
+		<table class="table table-bordered">
+			<tr>
+				<th>Course Name</th>
+				<th>Instructor</th>
+				<th>Course Duration</th>
+				<th>Start Date</th>
+			</tr>
+
+			<tr th:each="course,iterationStatus  : ${courses}">
+				<td th:text="${course.name}"></td>
+				<td th:text="${course.instructor_name}"></td>
+				<td th:text="${course.duration}"></td>
+				<td th:text="${course.session_start}"></td>
+
+
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>

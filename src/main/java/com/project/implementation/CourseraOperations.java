@@ -24,7 +24,7 @@ public class CourseraOperations {
 
 
 
-	// takes search query skill set
+	// get coursera courses by linkedin skill
 
 	public  List<CourseInfoBySkill> getCoursesBySkills(String skill){
 
@@ -32,31 +32,44 @@ public class CourseraOperations {
 
 
 		RestTemplate restTemplate = new RestTemplate();
-		Element elements;
+		Element elements=null;
+
 
 		String courseUrl="https://api.coursera.org/api/catalog.v1/courses?q=search&query="+skill+"&includes=sessions,instructors,categories,universities&fields=photo,instructor";
-		elements = restTemplate.getForObject(courseUrl, Element.class);
 
-		System.out.println(elements.getElements());
-		for(Course c : elements.getElements())
-		{
+		try{
+			elements = restTemplate.getForObject(courseUrl, Element.class);
 
-			CourseInfoBySkill course=new CourseInfoBySkill();
+		}catch(Exception e){
 
-			course.setCourse_id(c.getId());
-			course.setName(c.getName());
-			course.setCourse_image_url(c.getPhoto());
-			course.setInstructor_name(c.getInstructor());
+           System.out.println("Courses Not Found : 4O4 NOT FOUND ERROR HANDLING");
 
-			Linked l=c.getLinked();
+		}
 
-			setUniversityNameforCourse(course,l.getUniversities());
+		//System.out.println(elements.getElements());
+
+		if(elements !=null){
+
+			for(Course c : elements.getElements())
+			{
+
+				CourseInfoBySkill course=new CourseInfoBySkill();
+
+				course.setCourse_id(c.getId());
+				course.setName(c.getName());
+				course.setCourse_image_url(c.getPhoto());
+				course.setInstructor_name(c.getInstructor());
+
+				Linked l=c.getLinked();
+
+				setUniversityNameforCourse(course,l.getUniversities());
 
 
-			setSessionInfoForCourse(course,l.getSessions());
+				setSessionInfoForCourse(course,l.getSessions());
 
-			coursesForSkill.add(course);
+				coursesForSkill.add(course);
 
+			}
 		}
 
 		return coursesForSkill;
@@ -103,7 +116,7 @@ public class CourseraOperations {
 			for(int i=0;i<sessions.length;i++){
 
 				String sessionUrl="https://api.coursera.org/api/catalog.v1/sessions/"+sessions[i]+"?fields=startDay,startMonth,startYear,durationString";
-				
+
 				SessionsElement ele = restTemplate.getForObject(sessionUrl, SessionsElement.class);
 
 
@@ -111,7 +124,7 @@ public class CourseraOperations {
 				{
 
 					course.setDuration(s.getDurationString());
-					
+
 					course.setSession_start(s.getStartMonth()+"-"+s.getStartDay()+"-"+s.getStartYear());
 
 
@@ -127,21 +140,8 @@ public class CourseraOperations {
 
 		return course;
 	}
-	
-	
-	public StackItems getStack(){
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		String stackUrl="https://api.stackexchange.com/2.2/tags?order=desc&sort=popular&site=stackoverflow&fromdate=1375401600";
-		
-	    StackItems items = restTemplate.getForObject(stackUrl, StackItems.class);
 
-		
-	    
-	    return items;
-		
-	}
+
 
 
 }

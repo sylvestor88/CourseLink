@@ -10,10 +10,12 @@ import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.dto.CourseInfoBySkill;
+import com.project.dto.UserInfo;
 import com.project.implementation.CourseraOperations;
 
 @Controller
@@ -77,6 +79,16 @@ public class ApController {
 			return "connect/courses :: resultsList";
 		}
 		
+	}
+	
+	@RequestMapping(value="/subscribe", method=RequestMethod.POST)
+	public String saveSubscriptionInfo(@RequestBody UserInfo user){
+	
+		
+		// NEED TO WRITE SAVING USER INFO IN MONGO USING MONGO REPOSITORY
+		
+		
+		return null;
 	}
 	
 	/*@RequestMapping(value="/importToMongo/{skill}", method=RequestMethod.GET)
