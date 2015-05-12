@@ -131,15 +131,8 @@
 					<span th:text="${Email}">Email ID Not Found</span>
 				</p>
 				<h1 class="page-header">Courses</h1>
-				<div id="content">
-					<table class="table table-bordered">
-						<tr>
-							<th>Course Name</th>
-							<th>Instructor</th>
-							<th>Course Duration</th>
-							<th>Start Date</th>
-						</tr>
-					</table>
+				<div id="contentBlock">
+				
 				</div>
 			</div>
 		</div>
@@ -151,8 +144,13 @@
 	th:src="@{/js/bootstrap.min.js}"></script>
 	<script>
 	$(".mySkills").click(function () {
-        var addressValue = $(this).attr("value");
-        alert(addressValue);
+        
+		var url = '/getcoursesbylinkedinskills';
+		var skill = this.id;
+		
+		url = url + '/' + skill;
+		
+		$("#contentBlock").load(url);
     });
 	</script>
 </body>
