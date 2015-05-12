@@ -99,6 +99,23 @@ public class ApController {
 		
 	}
 	
+	@RequestMapping(value="/graph", method=RequestMethod.GET)
+	public String getGraphs(Model model){
+	
+		
+/*		List<Tag> trending;
+		
+		trending = sop.getTopTrending();
+		
+		//System.out.println("Testing");
+		
+		model.addAttribute("trending", trending);*/
+		
+		return "graph";
+		
+	}
+
+	
 	/*@RequestMapping(value="/importToMongo/{skill}", method=RequestMethod.GET)
 	public String getCourseToMongo(@PathVariable String skill){
 		
