@@ -20,7 +20,7 @@
     </div>
     
     <div>
-    <p>Course Name: <span th:text="${course.name}">Not Applicable</span><br>
+    <p>Course Name: <a th:href="${course.previewLink}"><span th:text="${course.name}">Not Applicable</span><br></a>
 						
 								Instructor Name: <span th:text="${course.instructor_name}">Not Applicable</span><br>
 							

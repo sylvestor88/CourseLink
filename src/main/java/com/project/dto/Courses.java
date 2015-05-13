@@ -11,7 +11,21 @@ public class Courses {
 	String course_image_url;
 	String session_start;
 	String duration;
+	String previewLink;
 	
+	
+	public String getSkill() {
+		return skill;
+	}
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+	public String getPreviewLink() {
+		return previewLink;
+	}
+	public void setPreviewLink(String previewLink) {
+		this.previewLink = previewLink;
+	}
 	public int getCourse_id() {
 		return course_id;
 	}

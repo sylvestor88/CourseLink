@@ -13,6 +13,13 @@ public class CourseInfoBySkill {
 	String duration;
 	String previewLink;
 	
+	
+	public String getPreviewLink() {
+		return previewLink;
+	}
+	public void setPreviewLink(String previewLink) {
+		this.previewLink = previewLink;
+	}
 	public int getCourse_id() {
 		return course_id;
 	}
@@ -61,12 +68,6 @@ public class CourseInfoBySkill {
 	}
 	public void setDuration(String duration) {
 		this.duration = duration;
-	}
-	public String getPreviewLink() {
-		return previewLink;
-	}
-	public void setPreviewLink(String previewLink) {
-		this.previewLink = previewLink;
 	}
 	
 	

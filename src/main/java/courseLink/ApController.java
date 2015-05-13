@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.dto.CourseInfoBySkill;
+import com.project.dto.Courses;
 import com.project.dto.Tag;
 import com.project.dto.UserInfo;
 import com.project.implementation.CourseraOperations;
@@ -143,7 +144,7 @@ public class ApController {
 		
 	}
 	
-	/*@RequestMapping(value="/importToMongo/{skill}", method=RequestMethod.GET)
+	@RequestMapping(value="/importToMongo/{skill}", method=RequestMethod.GET)
 	public String getCourseToMongo(@PathVariable String skill){
 		
 		List<CourseInfoBySkill> courses;
@@ -164,10 +165,16 @@ public class ApController {
 			toCourse.setCourse_image_url(course.getCourse_image_url());
 			toCourse.setSession_start(course.getSession_start());
 			toCourse.setDuration(course.getDuration());
-			//System.out.println(course.getName());
+			
+			if(!(course.getPreviewLink() == null)){
+				toCourse.setPreviewLink(course.getPreviewLink());
+			} else{
+				toCourse.setPreviewLink("#");
+			}
+			//System.out.println(course.getPreviewLink());
 			courseRepo.save(toCourse);
 		}
 		
 		return "login";
-	}*/
+	}
 }	
