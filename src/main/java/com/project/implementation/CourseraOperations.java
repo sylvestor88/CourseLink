@@ -34,7 +34,7 @@ public class CourseraOperations {
 		RestTemplate restTemplate = new RestTemplate();
 		Element elements;
 
-		String courseUrl="https://api.coursera.org/api/catalog.v1/courses?q=search&query="+skill+"&includes=sessions,instructors,categories,universities&fields=photo,instructor";
+		String courseUrl="https://api.coursera.org/api/catalog.v1/courses?q=search&query="+skill+"&includes=sessions,instructors,categories,universities&fields=photo,instructor,previewLink";
 		elements = restTemplate.getForObject(courseUrl, Element.class);
 
 		System.out.println(elements.getElements());
@@ -47,6 +47,7 @@ public class CourseraOperations {
 			course.setName(c.getName());
 			course.setCourse_image_url(c.getPhoto());
 			course.setInstructor_name(c.getInstructor());
+			course.setPreviewLink(c.getPreviewLink());      // added for preview link
 
 			Linked l=c.getLinked();
 
