@@ -9,20 +9,26 @@ import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.dto.CourseInfoBySkill;
 import com.project.dto.Tag;
+import com.project.dto.UserInfo;
 import com.project.implementation.CourseraOperations;
 import com.project.implementation.StackOverflowOperations;
+import com.project.util.EmailNotification;
 
 @Controller
 public class ApController {
 	
 	@Autowired
     private CourseRepository courseRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
 	
 	CourseraOperations cop = new CourseraOperations();
 	StackOverflowOperations sop = new StackOverflowOperations();
@@ -39,7 +45,45 @@ public class ApController {
     String login() {
         return "login";
     }
+	
+	@RequestMapping(value="/graph", method=RequestMethod.GET)
+	public String getGraphs(Model model){
+	
+		
+/*		List<Tag> trending;
+		
+		trending = sop.getTopTrending();
+		
+		//System.out.println("Testing");
+		
+		model.addAttribute("trending", trending);*/
+		
+		return "graph";
+		
+	}
 
+	@RequestMapping(value = "/subscribe", method = RequestMethod.GET)
+	public String registerForm(Model model) {
+
+		model.addAttribute("user", new UserInfo());
+		
+		return "subscribe";
+	}
+	
+	@RequestMapping(value = "/subscribe", method = RequestMethod.POST)
+	public String registerUser(@ModelAttribute UserInfo user,
+			Model model) {
+
+		model.addAttribute("user", user);		
+		
+		userRepo.save(user);
+		
+		EmailNotification email = new EmailNotification();
+		
+		email.sendEmailOnSubscriptionSignUp(user.getEmailId(), user.getUsername(), "Testing Mail", new StringBuilder("Say Something"));
+		
+		return "welcome";
+	}
 	
 	@RequestMapping("/connections")
 	String connected(Model model){
@@ -98,23 +142,6 @@ public class ApController {
 		return "trend";
 		
 	}
-	
-	@RequestMapping(value="/graph", method=RequestMethod.GET)
-	public String getGraphs(Model model){
-	
-		
-/*		List<Tag> trending;
-		
-		trending = sop.getTopTrending();
-		
-		//System.out.println("Testing");
-		
-		model.addAttribute("trending", trending);*/
-		
-		return "graph";
-		
-	}
-
 	
 	/*@RequestMapping(value="/importToMongo/{skill}", method=RequestMethod.GET)
 	public String getCourseToMongo(@PathVariable String skill){

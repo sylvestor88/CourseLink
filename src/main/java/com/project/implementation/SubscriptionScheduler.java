@@ -58,7 +58,7 @@ public class SubscriptionScheduler {
 			StringBuilder msgBody=new StringBuilder(null);
           
 			
-			String[] skills=user.getSkillChoice();
+			String[] skills=user.getSkillChoices();
 
 			for(String skill:skills){  // skill
 
