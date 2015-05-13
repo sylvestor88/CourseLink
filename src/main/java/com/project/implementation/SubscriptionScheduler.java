@@ -32,7 +32,7 @@ public class SubscriptionScheduler {
 	private UserRepository userRepo;
 
 
-	@Scheduled(fixedRate = 50000)
+	@Scheduled(fixedRate = 50000)   // for testing purpose only
 	//@Scheduled(cron = "0 0 0 * * *") // everyday at midnight
 	public void sendSubscribedCoursesInfo(){
 
@@ -73,7 +73,7 @@ public class SubscriptionScheduler {
 						try{
 
 							courseStartDate = ft.parse(courseStartDateString);
-
+							
 
 							if(currentDate.compareTo(courseStartDate)<0){
 
@@ -84,7 +84,8 @@ public class SubscriptionScheduler {
 								long diffDays = diff / (24 * 60 * 60 * 1000);
 
 
-								if(diffDays<6){
+								System.out.println("diffdays  :  "+diffDays);
+								if(diffDays<90){
 
 									isCourseFound=true;
 									msgBody.append("course name : "+ course.getName()+" course start date : "+course.getSession_start());
