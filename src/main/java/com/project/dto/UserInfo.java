@@ -14,12 +14,7 @@ public class UserInfo {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public String[] getSkillChoice() {
-		return skillChoices;
-	}
-	public void setSkillChoice(String[] skillChoices) {
-		this.skillChoices = skillChoices;
-	}
+	
 	
 	public String getProfession() {
 		return profession;
@@ -32,6 +27,12 @@ public class UserInfo {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String[] getSkillChoices() {
+		return skillChoices;
+	}
+	public void setSkillChoices(String[] skillChoices) {
+		this.skillChoices = skillChoices;
 	}
 
 }
