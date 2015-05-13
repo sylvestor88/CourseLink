@@ -33,6 +33,7 @@ public class SubscriptionScheduler {
 
 
 	@Scheduled(fixedRate = 50000)
+	//@Scheduled(cron = "0 0 0 * * *") // everyday at midnight
 	public void sendSubscribedCoursesInfo(){
 
 		TimeZone timeZone = TimeZone.getTimeZone("UTC");
@@ -53,6 +54,7 @@ public class SubscriptionScheduler {
 
 				String subject="Course Link : Your Course Subscription !!!";
 				StringBuilder msgBody=new StringBuilder();
+				Boolean isCourseFound=false;
 
 
 				String[] skills=user.getSkillChoices();
@@ -84,6 +86,7 @@ public class SubscriptionScheduler {
 
 								if(diffDays<6){
 
+									isCourseFound=true;
 									msgBody.append("course name : "+ course.getName()+" course start date : "+course.getSession_start());
 
 								}
@@ -101,12 +104,18 @@ public class SubscriptionScheduler {
 
 				}
 
-				System.out.println("out of user list");
-				// if msgBody not null then only send the mail
-				//if(msgBody!=null){
 
-				emailNotification.sendEmailonSubscription(user.getEmailId(), user.getUsername(),subject,msgBody);
-				//}
+				// if course found then only send the mail
+				if(isCourseFound==true){
+
+					emailNotification.sendEmailonSubscription(user.getEmailId(), user.getUsername(),subject,msgBody);
+
+					isCourseFound=false;
+				}
+				else{
+					
+					System.out.println("upcoming course not found for user");
+				}
 			}
 
 		} catch (ParseException e1) {
