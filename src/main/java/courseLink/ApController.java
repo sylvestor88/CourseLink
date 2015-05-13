@@ -81,7 +81,7 @@ public class ApController {
 		
 		EmailNotification email = new EmailNotification();
 		
-		email.sendEmailOnSubscriptionSignUp(user.getEmailId(), user.getUsername(), "Testing Mail", new StringBuilder("Say Something"));
+		email.sendEmailOnSubscriptionSignUp(user.getEmailId(), user.getUsername(), "Welcome to CourseLink !!!", new StringBuilder("Hi, Welcome to CourseLink and thank you for subscribing to us."));
 		
 		return "welcome";
 	}

@@ -23,9 +23,7 @@ public class EmailNotification {
 
 	public void sendEmailonSubscription(String userEmailAddress, String userName,String subject,StringBuilder msgBody)  
 	{
-		//String subject = "your choice of course is going to start soon";
-
-		//	String msgBody = "Hello "+ userEmailAddress +" courses list which are going to start soon";
+		
 
 		emailGenerator(userEmailAddress, userName, subject, msgBody);
 
@@ -62,7 +60,7 @@ public class EmailNotification {
 		try {
 			Message msg = new MimeMessage(session);
 			try {
-				msg.setFrom(new InternetAddress("courselink273@gmail.com", "Courses suggestion"));
+				msg.setFrom(new InternetAddress("courselink273@gmail.com", "CourseLink"));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
