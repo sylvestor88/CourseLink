@@ -101,9 +101,9 @@ public class CourseraOperations {
 
 		if(sessions.length>0){
 
-			for(int i=0;i<sessions.length;i++){
+			//for(int i=0;i<sessions.length;i++){
 
-				String sessionUrl="https://api.coursera.org/api/catalog.v1/sessions/"+sessions[i]+"?fields=startDay,startMonth,startYear,durationString";
+				String sessionUrl="https://api.coursera.org/api/catalog.v1/sessions/"+sessions[0]+"?fields=startDay,startMonth,startYear,durationString";
 				
 				SessionsElement ele = restTemplate.getForObject(sessionUrl, SessionsElement.class);
 
@@ -119,7 +119,7 @@ public class CourseraOperations {
 
 				}	
 
-			}
+			//}
 		}else{
 			System.out.println("sessions  list empty");
 		}
