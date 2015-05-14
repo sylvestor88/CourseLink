@@ -89,7 +89,7 @@ public class ApController {
 	@RequestMapping("/connections")
 	String connected(Model model){
 		
-		LinkedInProfile profile = linkedIn.profileOperations().getUserProfileFull();
+		/*LinkedInProfile profile = linkedIn.profileOperations().getUserProfileFull();
 		model.addAttribute("FirstName", profile.getFirstName());
 		model.addAttribute("LastName", profile.getLastName());
 		model.addAttribute("ProfilePictureUrl", profile.getProfilePictureUrl());
@@ -100,6 +100,20 @@ public class ApController {
 		
 		//System.out.println(profile.getProfilePictureUrl());
 		
+		return "connect/connections";*/
+		
+		  LinkedInProfile profile = linkedIn.profileOperations().getUserProfile();
+		//	
+		model.addAttribute("FirstName", profile.getFirstName());
+		model.addAttribute("LastName", profile.getLastName());
+		model.addAttribute("ProfilePictureUrl", profile.getProfilePictureUrl());
+		model.addAttribute("Summary", profile.getSummary());
+//			//model.addAttribute("Industry", profile.getIndustry());
+		model.addAttribute("Email", profile.getEmailAddress());
+		//model.addAttribute("Skills", linkedIn.profileOperations().getUserProfileFull().getSkills());
+
+		//System.out.println(profile.getLastName());
+
 		return "connect/connections";
 	}
 	
